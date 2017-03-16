@@ -1,13 +1,13 @@
-package bhz.base.conn011;
+package com.xiaobitipao.sample.test.thead.conn004;
 
 public class Singletion {
-	
-	private static class InnerSingletion {
-		private static Singletion single = new Singletion();
-	}
-	
-	public static Singletion getInstance(){
-		return InnerSingletion.single;
-	}
-	
+
+    private Singletion() {
+    }
+
+    private static Singletion single = new Singletion();
+
+    public static Singletion getInstance() {
+        return single;
+    }
 }
