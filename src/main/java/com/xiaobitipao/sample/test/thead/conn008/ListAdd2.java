@@ -5,8 +5,9 @@ import java.util.List;
 
 /**
  * <pre>
- * 使用 wait/notify 的问题在于：
- * 即使发出了通知，直到第一个线程执行结束，第二个线程还是无法响应。
+ * 使用 wait/notify:
+ * 区别：wait 释放锁，notfiy 不释放锁
+ * 问题：即使发出了通知，直到第一个线程执行结束，第二个线程还是无法响应。
  * </pre>
  */
 public class ListAdd2 {
