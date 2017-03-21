@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * volatile 关键字的非原子性：
  * volatile 关键字只有可见性，并不具备 synchronized 关键字的原子性（同步）
  * 一般 volatile 用于针对于多个线程可见的操作，并不能代替 synchronized 的同步功能
- * 要实现原子性，一般使用 atomic 包的系列对象支持原子性（atomic 包的系列对象只保证本身方法原子性，并不保证多次操作的原子性）
+ * 要实现原子性，一般使用 atomic 包以支持原子性（atomic 包下的类只保证本身方法原子性，并不保证多次操作的原子性）
  * </pre>
  */
 public class AtomicUse {
