@@ -3,7 +3,7 @@ package com.xiaobitipao.sample.test.thead.sync007;
 /**
  * <pre>
  * volatile 概念:
- * volatile 关键字的主要作用是使变量在多个线程见可见
+ * volatile 关键字的主要作用是使变量在多个线程间可见
  * 
  * 在 java 中，每一个线程都会有一块工作内存区，其中存放着所有线程共享的内存中的变量值的拷贝。
  * 当线程执行时，他在自己的工作区中操作这些变量。

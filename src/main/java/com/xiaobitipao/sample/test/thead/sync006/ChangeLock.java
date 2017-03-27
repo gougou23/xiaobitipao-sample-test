@@ -2,7 +2,8 @@ package com.xiaobitipao.sample.test.thead.sync006;
 
 /**
  * <pre>
- * 锁对象的改变问题
+ * 锁对象的改变问题：
+ * 尽量不在内部修改锁内容，否则容易导致锁对象发生改变
  * </pre>
  */
 public class ChangeLock {
