@@ -1,4 +1,4 @@
-package com.bjsxt.height.lock021;
+package com.xiaobitipao.sample.test.thead.lock021;
 
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;

@@ -1,4 +1,4 @@
-package com.bjsxt.height.concurrent019;
+package com.xiaobitipao.sample.test.thead.concurrent019;
 import java.io.IOException;  
 import java.util.Random;  
 import java.util.concurrent.BrokenBarrierException;  
