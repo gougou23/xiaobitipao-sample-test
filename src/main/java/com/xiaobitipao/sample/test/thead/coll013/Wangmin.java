@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Wangmin implements Delayed {
 
+    // 用户名
     private String name;
     // 身份证
     private String id;
@@ -38,7 +39,7 @@ public class Wangmin implements Delayed {
     }
 
     /**
-     * 相互批较排序用
+     * 相互比较排序用
      */
     @Override
     public int compareTo(Delayed delayed) {

@@ -2,25 +2,27 @@ package com.xiaobitipao.sample.test.thead.coll013;
 
 import java.util.concurrent.DelayQueue;
 
+import com.xiaobitipao.sample.test.utils.DateUtils;
+
 public class WangBa implements Runnable {
 
     private DelayQueue<Wangmin> queue = new DelayQueue<Wangmin>();
 
-    public boolean yinye = true;
+    public boolean yingye = true;
 
     public void shangji(String name, String id, int money) {
         Wangmin man = new Wangmin(name, id, 1000 * money + System.currentTimeMillis());
-        System.out.println("网名" + man.getName() + " 身份证" + man.getId() + "交钱" + money + "块,开始上机...");
+        System.out.println(DateUtils.formatSystemDate() + " 网名：" + man.getName() + "，身份证：" + man.getId() + "交钱：" + money + "块,开始上机...");
         this.queue.add(man);
     }
 
     public void xiaji(Wangmin man) {
-        System.out.println("网名" + man.getName() + " 身份证" + man.getId() + "时间到下机...");
+        System.out.println(DateUtils.formatSystemDate() + " 网名：" + man.getName() + "，身份证：" + man.getId() + "时间到下机...");
     }
 
     @Override
     public void run() {
-        while (yinye) {
+        while (yingye) {
             try {
                 Wangmin man = queue.take();
                 xiaji(man);

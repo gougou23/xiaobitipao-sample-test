@@ -8,6 +8,9 @@ public class UseCopyOnWrite {
     public static void main(String[] args) {
 
         CopyOnWriteArrayList<String> cwal = new CopyOnWriteArrayList<String>();
+        cwal.add("");
+
         CopyOnWriteArraySet<String> cwas = new CopyOnWriteArraySet<String>();
+        cwas.add("");
     }
 }
