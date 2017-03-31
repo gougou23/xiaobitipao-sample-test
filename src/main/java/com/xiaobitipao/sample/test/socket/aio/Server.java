@@ -8,6 +8,9 @@ import java.util.concurrent.Executors;
 
 public class Server {
 
+    // Server 监听的端口
+    private final static int PORT = 8765;
+
     // 线程池
     private ExecutorService executorService;
 
@@ -45,6 +48,6 @@ public class Server {
     }
 
     public static void main(String[] args) {
-        Server server = new Server(8765);
+        new Server(PORT);
     }
 }

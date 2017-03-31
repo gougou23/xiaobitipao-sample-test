@@ -7,11 +7,16 @@ import java.nio.channels.SocketChannel;
 
 public class Client {
 
+    // 要连接的服务端 IP 地址
+    private final static String ADDRESS = "127.0.0.1";
+    // 要连接的服务端监听端口
+    private final static int PORT = 8765;
+
     // 需要一个Selector
     public static void main(String[] args) {
 
         // 创建连接的地址
-        InetSocketAddress address = new InetSocketAddress("127.0.0.1", 8765);
+        InetSocketAddress address = new InetSocketAddress(ADDRESS, PORT);
 
         // 建立缓冲区
         ByteBuffer buf = ByteBuffer.allocate(1024);

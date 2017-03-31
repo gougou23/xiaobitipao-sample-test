@@ -8,6 +8,11 @@ import java.util.concurrent.ExecutionException;
 
 public class Client implements Runnable {
 
+    // 要连接的服务端 IP 地址
+    private final static String ADDRESS = "127.0.0.1";
+    // 要连接的服务端监听端口
+    private final static int PORT = 8765;
+
     private AsynchronousSocketChannel asc;
 
     public Client() throws Exception {
@@ -15,7 +20,7 @@ public class Client implements Runnable {
     }
 
     public void connect() {
-        asc.connect(new InetSocketAddress("127.0.0.1", 8765));
+        asc.connect(new InetSocketAddress(ADDRESS, PORT));
     }
 
     public void write(String request) {
