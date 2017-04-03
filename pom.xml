@@ -20,6 +20,7 @@
         <version.maven.eclipse.plugin>2.10</version.maven.eclipse.plugin>
         <version.jdk>1.8</version.jdk>
         <version.junit>4.12</version.junit>
+        <version.io.netty>5.0.0.Alpha2</version.io.netty>
     </properties>
 
     <build>
@@ -59,6 +60,19 @@
             <artifactId>junit</artifactId>
             <version>${version.junit}</version>
             <scope>test</scope>
+        </dependency>
+        <!-- ============================ -->
+        <!-- Netty-all Dependencies -->
+        <!-- ============================ -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${version.io.netty}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-example</artifactId>
+            <version>${version.io.netty}</version>
         </dependency>
     </dependencies>
 </project>
