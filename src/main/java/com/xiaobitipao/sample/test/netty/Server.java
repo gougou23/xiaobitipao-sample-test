@@ -48,12 +48,14 @@ public class Server {
                 }
             });
 
-            // 绑定指定的端口进行监听
+            // 绑定指定的端口进行监听，同步等待成功
             ChannelFuture f = sb.bind(port).sync();
 
             // 等待服务端监听端口关闭，即阻塞
+            // 直到服务端连接关闭之后 main 方法才退出
             f.channel().closeFuture().sync();
         } finally {
+            // 优雅退出，使防线城池资源
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }

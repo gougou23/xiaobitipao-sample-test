@@ -19,6 +19,10 @@ public class ServerHandler extends ChannelHandlerAdapter {
         System.out.println("Server: " + request);
 
         // 写给客户端
+        // 从性能角度考虑，为了防止频繁的唤醒 Selector 进行消息发送，
+        // Netty 的 write 并不直接将消息写入 SocketChannel 中，
+        // 调用 write 方法只是将待发送的消息放到发送缓冲区中，
+        // 再通过调用 flush 方法，将发送缓冲区中的消息全部写到 SocketChannel 中
         ByteBuf resp = Unpooled.copiedBuffer("来自 Server 的反馈信息".getBytes());
         ChannelFuture cf = ctx.write(resp);
 
@@ -29,8 +33,8 @@ public class ServerHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        // 将 write 的内容 flush
-        // 或者直接调用 writeAndFlush 方法
+        // 通过调用 flush 方法，将发送缓冲区中的消息全部写到 SocketChannel 中
+        // 或者直接调用 writeAndFlush 方法替换 write 方法
         ctx.flush();
     }
 
