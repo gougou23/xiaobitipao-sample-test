@@ -10,6 +10,7 @@ public class Client implements Runnable {
 
     // 要连接的服务端 IP 地址
     private final static String ADDRESS = "127.0.0.1";
+
     // 要连接的服务端监听端口
     private final static int PORT = 8765;
 

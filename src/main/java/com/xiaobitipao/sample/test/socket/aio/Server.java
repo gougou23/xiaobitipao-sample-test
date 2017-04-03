@@ -12,10 +12,10 @@ public class Server {
     private final static int PORT = 8765;
 
     // 线程池
-    private ExecutorService executorService;
-
-    // 线程组
-    private AsynchronousChannelGroup threadGroup;
+//    private ExecutorService executorService;
+//
+//    // 线程组
+//    private AsynchronousChannelGroup threadGroup;
 
     // 服务器通道
     public AsynchronousServerSocketChannel assc;
@@ -23,14 +23,14 @@ public class Server {
     public Server(int port) {
 
         try {
-            // 创建一个缓存池
-            executorService = Executors.newCachedThreadPool();
-
-            // 创建线程组
-            threadGroup = AsynchronousChannelGroup.withCachedThreadPool(executorService, 1);
+//            // 创建一个缓存池
+//            executorService = Executors.newCachedThreadPool();
+//
+//            // 创建线程组
+//            threadGroup = AsynchronousChannelGroup.withCachedThreadPool(executorService, 1);
 
             // 创建服务器通道
-            assc = AsynchronousServerSocketChannel.open(threadGroup);
+            assc = AsynchronousServerSocketChannel.open();
 
             // 进行绑定
             assc.bind(new InetSocketAddress(port));
