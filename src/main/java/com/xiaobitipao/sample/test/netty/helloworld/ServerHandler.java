@@ -1,4 +1,4 @@
-package com.xiaobitipao.sample.test.netty;
+package com.xiaobitipao.sample.test.netty.helloworld;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

@@ -1,0 +1,74 @@
+package com.xiaobitipao.sample.test.netty.packunpack.delimiter;
+
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.string.StringDecoder;
+
+public class Server {
+
+    // 服务端监听端口
+    private final static int PORT = 8765;
+
+    public void bind(int port) throws Exception {
+
+        // 1.第一个线程组:是用于接收 Client 端连接的
+        EventLoopGroup bossGroup = new NioEventLoopGroup();
+
+        // 2.第二个线程组:是用于处理已经接收到的连接
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
+
+        try {
+            // 3.一个启动 NIO 服务的辅助启动类,对 Server 进行一系列的配置
+            ServerBootstrap sb = new ServerBootstrap();
+
+            // 把俩个工作线程组加入进来
+            sb.group(bossGroup, workerGroup);
+            // 指定使用 NioServerSocketChannel 类型的通道
+            sb.channel(NioServerSocketChannel.class);
+            // 指定 TCP 连接的缓冲区大小
+            sb.option(ChannelOption.SO_BACKLOG, 1024);
+            // 设置发送缓冲大小
+            sb.option(ChannelOption.SO_SNDBUF, 32 * 1024);
+            // 接收缓冲大小
+            sb.option(ChannelOption.SO_RCVBUF, 32 * 1024);
+            // 保持连接
+            sb.option(ChannelOption.SO_KEEPALIVE, true);
+            sb.childHandler(new ChannelInitializer<SocketChannel>() {
+                @Override
+                protected void initChannel(SocketChannel sc) throws Exception {
+                    // 设置特殊分隔符
+                    ByteBuf buf = Unpooled.copiedBuffer("$_".getBytes());
+                    sc.pipeline().addLast(new DelimiterBasedFrameDecoder(1024, buf));
+
+                    // 设置字符串形式的解码
+                    sc.pipeline().addLast(new StringDecoder());
+
+                    sc.pipeline().addLast(new ServerHandler());
+                }
+            });
+
+            // 绑定指定的端口进行监听，同步等待成功
+            ChannelFuture cf = sb.bind(port).sync();
+
+            // 等待服务端监听端口关闭，即阻塞
+            // 直到服务端连接关闭之后 main 方法才退出
+            cf.channel().closeFuture().sync();
+        } finally {
+            bossGroup.shutdownGracefully();
+            workerGroup.shutdownGracefully();
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        new Server().bind(PORT);
+    }
+}
