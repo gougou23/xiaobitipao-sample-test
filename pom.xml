@@ -21,6 +21,7 @@
         <version.jdk>1.8</version.jdk>
         <version.junit>4.12</version.junit>
         <version.io.netty>5.0.0.Alpha2</version.io.netty>
+        <version.org.jboss.marshalling>1.4.11.Final</version.org.jboss.marshalling>
     </properties>
 
     <build>
@@ -73,6 +74,19 @@
             <groupId>io.netty</groupId>
             <artifactId>netty-example</artifactId>
             <version>${version.io.netty}</version>
+        </dependency>
+        <!-- ============================ -->
+        <!-- jboss.marshalling Dependencies -->
+        <!-- ============================ -->
+        <dependency>
+            <groupId>org.jboss.marshalling</groupId>
+            <artifactId>jboss-marshalling</artifactId>
+            <version>${version.org.jboss.marshalling}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.marshalling</groupId>
+            <artifactId>jboss-marshalling-serial</artifactId>
+            <version>${version.org.jboss.marshalling}</version>
         </dependency>
     </dependencies>
 </project>
