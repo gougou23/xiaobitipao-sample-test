@@ -34,7 +34,7 @@ public class Client {
                     // 设置定长字符串接收
                     sc.pipeline().addLast(new FixedLengthFrameDecoder(5));
 
-                    // 设置字符串形式的解码
+                    // 设置字符串形式的解码(ByteBuf -> String 变换)
                     sc.pipeline().addLast(new StringDecoder());
 
                     sc.pipeline().addLast(new ClientHandler());
@@ -43,6 +43,9 @@ public class Client {
 
             ChannelFuture cf = b.connect(address, port).sync();
 
+            // 定长拆分时，如果发送的数据不够指定长度，数据是不会发送的
+            // 比如，如下的 ccccccc，前面 5 个 c 被发送到客户端，后面两个 c 由于不够指定长度 5，所以将被忽略
+            // 如果想发送的话，后面可以补 3 个空格
             cf.channel().writeAndFlush(Unpooled.wrappedBuffer("aaaaabbbbb".getBytes()));
             cf.channel().writeAndFlush(Unpooled.copiedBuffer("ccccccc".getBytes()));
 

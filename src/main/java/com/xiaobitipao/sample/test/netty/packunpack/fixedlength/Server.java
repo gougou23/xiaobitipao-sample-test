@@ -46,17 +46,18 @@ public class Server {
                     // 设置定长字符串接收
                     sc.pipeline().addLast(new FixedLengthFrameDecoder(5));
 
-                    // 设置字符串形式的解码
+                    // 设置字符串形式的解码(ByteBuf -> String 变换)
                     sc.pipeline().addLast(new StringDecoder());
 
                     sc.pipeline().addLast(new ServerHandler());
                 }
             });
 
-            // 4 绑定连接
+            // 绑定指定的端口进行监听，同步等待成功
             ChannelFuture cf = sb.bind(port).sync();
 
-            // 等待服务器监听端口关闭
+            // 等待服务端监听端口关闭，即阻塞
+            // 直到服务端连接关闭之后 main 方法才退出
             cf.channel().closeFuture().sync();
         } finally {
             bossGroup.shutdownGracefully();

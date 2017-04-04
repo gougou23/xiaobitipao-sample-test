@@ -49,7 +49,7 @@ public class Server {
                     ByteBuf buf = Unpooled.copiedBuffer("$_".getBytes());
                     sc.pipeline().addLast(new DelimiterBasedFrameDecoder(1024, buf));
 
-                    // 设置字符串形式的解码
+                    // 设置字符串形式的解码(ByteBuf -> String 变换)
                     sc.pipeline().addLast(new StringDecoder());
 
                     sc.pipeline().addLast(new ServerHandler());
