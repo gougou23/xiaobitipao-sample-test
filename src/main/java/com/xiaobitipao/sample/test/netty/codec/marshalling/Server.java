@@ -1,4 +1,4 @@
-package com.xiaobitipao.sample.test.netty.runtime;
+package com.xiaobitipao.sample.test.netty.codec.marshalling;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;

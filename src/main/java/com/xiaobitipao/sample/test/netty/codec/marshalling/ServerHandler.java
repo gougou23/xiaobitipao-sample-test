@@ -1,4 +1,4 @@
-package com.xiaobitipao.sample.test.netty.runtime;
+package com.xiaobitipao.sample.test.netty.codec.marshalling;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;

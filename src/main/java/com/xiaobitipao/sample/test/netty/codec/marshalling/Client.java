@@ -1,4 +1,4 @@
-package com.xiaobitipao.sample.test.netty.runtime;
+package com.xiaobitipao.sample.test.netty.codec.marshalling;
 
 import java.util.concurrent.TimeUnit;
 
