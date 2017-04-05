@@ -1,8 +1,8 @@
 package com.xiaobitipao.sample.test.utils;
 
-public class TestSystemProperty {
+public class SystemProperties {
 
-    public static void main(String[] args) {
+    public static void printSystemProperties() {
 
         System.out.println("java版本号：" + System.getProperty("java.version"));
         System.out.println("Java提供商名称：" + System.getProperty("java.vendor"));
@@ -32,5 +32,9 @@ public class TestSystemProperty {
         System.out.println("操作系统用户名：" + System.getProperty("user.name"));
         System.out.println("操作系统用户的主目录：" + System.getProperty("user.home"));
         System.out.println("当前程序所在目录：" + System.getProperty("user.dir"));
+    }
+
+    public static void main(String[] args) {
+        printSystemProperties();
     }
 }
