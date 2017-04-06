@@ -13,30 +13,38 @@ import io.netty.handler.logging.LoggingHandler;
 
 public class Server {
 
-	public static void main(String[] args) throws Exception{
-		
-		EventLoopGroup pGroup = new NioEventLoopGroup();
-		EventLoopGroup cGroup = new NioEventLoopGroup();
-		
-		ServerBootstrap b = new ServerBootstrap();
-		b.group(pGroup, cGroup)
-		 .channel(NioServerSocketChannel.class)
-		 .option(ChannelOption.SO_BACKLOG, 1024)
-		 //设置日志
-		 .handler(new LoggingHandler(LogLevel.INFO))
-		 .childHandler(new ChannelInitializer<SocketChannel>() {
-			protected void initChannel(SocketChannel sc) throws Exception {
-				sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingDecoder());
-				sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingEncoder());
-				sc.pipeline().addLast(new ServerHeartBeatHandler());
-			}
-		});
-		
-		ChannelFuture cf = b.bind(8765).sync();
-		
-		cf.channel().closeFuture().sync();
-		pGroup.shutdownGracefully();
-		cGroup.shutdownGracefully();
-		
-	}
+    // 服务端监听端口
+    private final static int PORT = 8765;
+
+    public void bind(int port) throws Exception {
+
+        EventLoopGroup bossGroup = new NioEventLoopGroup();
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
+
+        try {
+            ServerBootstrap sb = new ServerBootstrap();
+            sb.group(bossGroup, workerGroup);
+            sb.channel(NioServerSocketChannel.class);
+            sb.option(ChannelOption.SO_BACKLOG, 1024);
+            sb.handler(new LoggingHandler(LogLevel.INFO));
+            sb.childHandler(new ChannelInitializer<SocketChannel>() {
+                protected void initChannel(SocketChannel sc) throws Exception {
+                    sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingDecoder());
+                    sc.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingEncoder());
+                    sc.pipeline().addLast(new ServerHeartBeatHandler());
+                }
+            });
+
+            ChannelFuture cf = sb.bind(port).sync();
+
+            cf.channel().closeFuture().sync();
+        } finally {
+            bossGroup.shutdownGracefully();
+            workerGroup.shutdownGracefully();
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        new Server().bind(PORT);
+    }
 }
